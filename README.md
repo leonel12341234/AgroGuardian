@@ -9,7 +9,7 @@
 - Cálculo del **peso estimado** y del **valor en mercado** del grano almacenado.
 - Algoritmos específicos según tipo de grano, basados en datos del clima argentino y recomendaciones del INTA.
 - Registro e historial de cosechas, mantenimientos y alertas.
-- Interfaz web responsive pensada para zonas rurales.
+- Interfaz web pensada para zonas rurales.
 
 ## 🧠 Algoritmos personalizados
 
@@ -23,7 +23,7 @@ Cada tipo de grano tiene su propio conjunto de reglas y condiciones óptimas, lo
 
 ## 🗃️ Tecnología
 
-- **Frontend:** HTML + CSS (diseño responsive y moderno)
+- **Frontend:** HTML + CSS (diseño Rulal y moderno)
 - **Base de datos:** MySQL  (para historial de datos)
 
 ## 📍 Contexto
