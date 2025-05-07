@@ -24,15 +24,10 @@ Cada tipo de grano tiene su propio conjunto de reglas y condiciones óptimas, lo
 ## 🗃️ Tecnología
 
 - **Frontend:** HTML + CSS (diseño responsive y moderno)
-- **Backend:** (a definir según desarrollo)
-- **Base de datos:** MySQL o SQLite (para historial de datos)
+- **Base de datos:** MySQL  (para historial de datos)
 
 ## 📍 Contexto
 
 Este proyecto fue desarrollado como parte de una tesina de informática en la Escuela PROA Río Tercero (Córdoba, Argentina). Su objetivo es resolver una necesidad real del sector agropecuario utilizando herramientas tecnológicas accesibles y eficientes.
 
-## ⚙️ Estado del proyecto
 
-🛠️ En desarrollo — se están construyendo el frontend, los algoritmos y la conexión con base de datos.
-
----
