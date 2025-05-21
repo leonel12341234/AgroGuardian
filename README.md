@@ -30,7 +30,7 @@ Cada tipo de grano tiene su propio conjunto de reglas y condiciones óptimas, lo
 
 Este proyecto fue desarrollado como parte de una tesina de informática en la Escuela PROA Río Tercero (Córdoba, Argentina). Su objetivo es resolver una necesidad real del sector agropecuario utilizando herramientas tecnológicas accesibles y eficientes.
 
-##👥 Integrantes
+## 👥 Integrantes
 
 Leonel Soto
 Dylan Cabrera
