@@ -4,9 +4,9 @@
 
 ## 📱 Funcionalidades principales
 
-- Monitoreo de **temperatura** y **humedad** dentro del silo.
+- Monitoreo de temperatura y humedad dentro del silo.
 - Alertas automáticas ante condiciones críticas.
-- Cálculo del **peso estimado** y del **valor en mercado** del grano almacenado.
+- Cálculo del peso estimado y del valor en mercado del grano almacenado.
 - Algoritmos específicos según tipo de grano, basados en datos del clima argentino y recomendaciones del INTA.
 - Registro e historial de cosechas, mantenimientos y alertas.
 - Interfaz web pensada para zonas rurales.
