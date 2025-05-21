@@ -32,6 +32,7 @@ Este proyecto fue desarrollado como parte de una tesina de informática en la Es
 
 ## 👥 Integrantes
 
-Leonel Soto
-Dylan Cabrera
+-Leonel Soto
+
+-Dylan Cabrera
 
