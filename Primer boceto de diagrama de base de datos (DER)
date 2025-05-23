@@ -1,0 +1,56 @@
+## Tabla usuarios
+
+| Campo         | Tipo        | Clave | Comentario                    |
+|---------------|-------------|-------|-------------------------------|
+| id            | INT         | PK    | Identificador único           |
+| username      | VARCHAR(50) |       | Nombre de usuario             |
+| password_hash | TEXT        |       | Contraseña en hash seguro     |
+
+
+ ## Tabla silos
+
+| Campo       | Tipo         | Clave | Comentario                      |
+|-------------|--------------|-------|---------------------------------|
+| id          | INT          | PK    | Identificador único del silo    |
+| user_id     | INT          | FK    | Referencia al usuario propietario |
+| tipo_grano  | VARCHAR(30)  |       | Soja, maíz, trigo, etc.         |
+| capacidad   | INT          |       | Capacidad total del silo (kg)   |
+| ubicacion   | VARCHAR(100) |       | Ubicación física (opcional)     |
+
+
+## Tabla cargas
+
+| Campo         | Tipo      | Clave | Comentario                              |
+|---------------|-----------|-------|-----------------------------------------|
+| id            | INT       | PK    | Identificador de carga                  |
+| silo_id       | INT       | FK    | Referencia al silo                      |
+| ocupacion     | INT       |       | Cantidad cargada (kg)                   |
+| precio_actual | FLOAT     |       | Precio estimado por tonelada (opcional) |
+| fecha         | DATETIME  |       | Fecha y hora de la carga                |
+
+USUARIOS
+┌─────────────┐
+│ id (PK)     │
+│ username    │
+│ password    │
+└────┬────────┘
+     │ 1
+     ▼
+SILOS
+┌─────────────┐
+│ id (PK)     │
+│ user_id (FK)◄───────────────┐
+│ tipo_grano  │               │
+│ capacidad   │               │
+│ ubicacion   │               │
+└────┬────────┘               │
+     │ 1                      │
+     ▼                        │
+CARGAS                        │
+┌─────────────┐               │
+│ id (PK)     │               │
+│ silo_id (FK)◄───────────────┘
+│ ocupacion   │
+│ precio      │
+│ fecha       │
+└─────────────┘
