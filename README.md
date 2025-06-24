@@ -1,40 +1,52 @@
-# AgroGuardian 🌾
+# AgroGuardian
 
-**AgroGuardian** es una aplicación pensada para productores agropecuarios que almacenan granos (soja, maíz, trigo, girasol, cebada) en silos metálicos. El objetivo es mejorar el control, la conservación y el valor económico de lo almacenado mediante algoritmos inteligentes y monitoreo en tiempo real.
+AgroGuardian es una aplicación web pensada para productores agropecuarios que almacenan granos (soja, maíz, trigo, girasol, cebada) en silos metálicos.  
+El objetivo es mejorar el control, la conservación y el valor económico de lo almacenado mediante algoritmos inteligentes y monitoreo en tiempo real.
 
-## 📱 Funcionalidades principales
+---
 
-- Monitoreo de temperatura y humedad dentro del silo.
-- Alertas automáticas ante condiciones críticas.
-- Cálculo del peso estimado y del valor en mercado del grano almacenado.
-- Algoritmos específicos según tipo de grano, basados en datos del clima argentino y recomendaciones del INTA.
-- Registro e historial de cosechas, mantenimientos y alertas.
-- Interfaz web pensada para zonas rurales.
+## Funcionalidades Principales
 
-## 🧠 Algoritmos personalizados
+- Monitoreo en tiempo real de temperatura y humedad dentro del silo  
+- Alertas automáticas ante condiciones críticas de almacenamiento  
+- Cálculo del peso estimado y del valor de mercado del grano almacenado  
+- Algoritmos específicos según tipo de grano, basados en datos del clima argentino y recomendaciones del INTA  
+- Registro histórico de cosechas, mantenimientos y alertas  
+- Interfaz web optimizada para zonas rurales y acceso móvil  
 
-Cada tipo de grano tiene su propio conjunto de reglas y condiciones óptimas, lo que permite alertas precisas y recomendaciones específicas para:
+---
 
-- Soja
-- Maíz
-- Trigo
-- Girasol
-- Cebada
+## Algoritmos Personalizados por Tipo de Grano
 
-## 🗃️ Tecnología
+Cada tipo de grano posee condiciones óptimas de conservación. AgroGuardian aplica lógica específica para emitir alertas y recomendaciones precisas para:
 
-- **Frontend:** HTML + CSS (diseño Rulal y moderno)
-- **Base de datos:** MySQL  (para historial de datos)
+- Soja  
+- Maíz  
+- Trigo  
+- Girasol  
+- Cebada  
 
-## 📍 Contexto
+---
 
-Este proyecto fue desarrollado como parte de una tesina de informática en la Escuela PROA Río Tercero (Córdoba, Argentina). Su objetivo es resolver una necesidad real del sector agropecuario utilizando herramientas tecnológicas accesibles y eficientes.
+## Tecnologías Utilizadas
 
-## 👥 Integrantes
+- Frontend: HTML + CSS  
+- Backend: Python (framework Flask)  
+- Base de datos: MySQL (en la nube o local con XAMPP)
 
--Leonel Soto
+---
 
--Dylan Cabrera
+## Contexto del Proyecto
+
+Este proyecto fue desarrollado como parte de una tesina final en la especialidad de Informática de la Escuela PROA Río Tercero (Córdoba, Argentina).  
+Su propósito es resolver una necesidad concreta del sector agropecuario mediante el uso de herramientas tecnológicas accesibles y eficientes.
+
+---
+
+## Integrantes
+
+- Leonel Soto  
+- Dylan Cabrera
 
 # AgroGuardian
 
