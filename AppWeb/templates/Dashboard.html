@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroGuardian - Panel</title>
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <h1>AgroGuardian</h1>
+      <nav>
+        <ul>
+          <li><a href="#panel">Inicio</a></li>
+          <li><a href="historial.html">Historial</a></li>
+          <li><a href="#" onclick="cerrarSesion(); return false;">Cerrar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container" style="margin-top: 100px;">
+    <div class="container">
+      <h2>Panel de Monitoreo</h2>
+
+      <form id="formulario">
+        <label for="tipo_grano">Tipo de grano:</label>
+        <input type="text" id="tipo_grano" name="tipo_grano" required>
+
+        <label for="capacidad">Capacidad del silo (kg):</label>
+        <input type="number" id="capacidad" name="capacidad" required>
+
+        <label for="ocupacion">Ocupación actual (kg):</label>
+        <input type="number" id="ocupacion" name="ocupacion" required>
+
+        <label for="humedad">Humedad actual (%):</label>
+        <input type="number" id="humedad" name="humedad" required>
+
+        <label for="temperatura">Temperatura interna (°C):</label>
+        <input type="number" id="temperatura" name="temperatura" required>
+
+        <button type="submit">Guardar y Analizar</button>
+      </form>
+
+      <div class="resultados" id="resultados" style="display: none; margin-top: 30px;">
+        <h3>Recomendaciones del sistema</h3>
+        <p id="estado"></p>
+        <p id="ocupacion_texto"></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    function cerrarSesion() {
+      localStorage.removeItem("usuario"); // borrás la sesión
+      window.location.href = "file:///C:/Prueba%202%20tesina/agroguardian/index.htm#login"; // redirigís al login
+    }
+
+    document.getElementById("formulario").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const grano = document.getElementById("tipo_grano").value;
+      const capacidad = parseFloat(document.getElementById("capacidad").value);
+      const ocupacion = parseFloat(document.getElementById("ocupacion").value);
+      const humedad = parseFloat(document.getElementById("humedad").value);
+      const temperatura = parseFloat(document.getElementById("temperatura").value);
+
+      const estado = (humedad > 14 || temperatura > 30)
+        ? "⚠️ Atención: condiciones críticas detectadas."
+        : "✅ Condiciones normales.";
+
+      const porcentaje = ((ocupacion / capacidad) * 100).toFixed(2);
+
+      document.getElementById("estado").innerHTML =
+        `<strong>Estado del silo:</strong> ${estado}`;
+      document.getElementById("ocupacion_texto").innerHTML =
+        `<strong>Ocupación actual:</strong> ${ocupacion} kg / ${capacidad} kg (${porcentaje}%)`;
+
+      document.getElementById("resultados").style.display = "block";
+
+      const entrada = {
+        fecha: new Date().toLocaleString(),
+        grano,
+        capacidad,
+        ocupacion,
+        humedad,
+        temperatura
+      };
+
+      const historial = JSON.parse(localStorage.getItem("historial")) || [];
+      historial.push(entrada);
+      localStorage.setItem("historial", JSON.stringify(historial));
+    });
+  </script>
+</body>
+</html>

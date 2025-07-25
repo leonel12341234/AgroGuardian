@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AgroGuardian - Monitoreo de Silos</title>
+  </head>
+  <body>
+
+    <header>
+      <div class="nav-container">
+        <h1>AgroGuardian</h1>
+        <nav>
+          <ul>
+            <li><a href="#login" id="loginLink">Iniciar sesión</a></li>
+            <li><a href="#register" id="registerLink">Registrarse</a></li>
+            <li><a href="#caracteristicas" id="carac">Características</a></li>
+            <li><a href="#beneficios" id="benef">Beneficios</a></li>
+            <li><a href="#contacto" id="contactLink">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section id="login" class="form-container">
+  <div class="container">
+    <h2>Iniciar sesión</h2>
+    <form onsubmit="handleLogin(event)">
+      <label for="loginEmail">Correo electrónico:</label>
+      <input type="email" id="loginEmail" name="email" required />
+
+      <label for="loginPassword">Contraseña:</label>
+      <input type="password" id="loginPassword" name="password" required />
+
+      <button class="leo" type="submit">Iniciar sesión</button>
+    </form>
+  </div>
+</section>
+
+<section id="register" class="form-container">
+  <div class="container">
+    <h2>Registrarse</h2>
+    <form onsubmit="handleRegister(event)">
+      <label for="registerName">Nombre completo:</label>
+      <input type="text" id="registerName" name="name" required />
+
+      <label for="registerEmail">Correo electrónico:</label>
+      <input type="email" id="registerEmail" name="email" required />
+
+      <label for="registerPassword">Contraseña:</label>
+      <input type="password" id="registerPassword" name="password" required />
+
+      <label for="registerConfirmPassword">Confirmar contraseña:</label>
+      <input type="password" id="registerConfirmPassword" name="confirmPassword" required />
+
+      <button type="submit">Registrarse</button>
+    </form>
+  </div>
+</section>
+
+
+   
+    <section id="caracteristicas">
+      <div class="container">
+        <h2>Características de la App</h2>
+        <ul>
+          <li>
+            Monitoreo en tiempo real del silo: temperatura, humedad y peso del
+            grano.
+          </li>
+          <li>
+            Identificación del tipo de grano y visualización desde el celular.
+          </li>
+          <li>
+            Sistema de alertas ante condiciones críticas con recomendaciones
+            automáticas.
+          </li>
+          <li>
+            Valor de mercado actualizado e integración con fuentes oficiales.
+          </li>
+          <li>
+            Historial completo de campañas de almacenamiento con estadísticas y
+            trazabilidad.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="beneficios">
+      <div class="container">
+        <h2>Impacto y Beneficios</h2>
+        <ul>
+          <li>Previene pérdidas económicas por deterioro de la mercadería.</li>
+          <li>Ofrece control total del silo en tiempo real.</li>
+          <li>
+            Facilita decisiones estratégicas al vincular calidad con precios de
+            mercado.
+          </li>
+          <li>Promueve buenas prácticas con mantenimiento preventivo.</li>
+          <li>
+            Genera trazabilidad completa y útil para auditorías o
+            certificaciones.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  
+    <section id="contacto">
+      <div class="container">
+        <h2>Contacto</h2>
+        <p>
+          ¿Tienes preguntas o necesitas más información? Contáctanos:
+          3571-525897
+        </p>
+        <p>Email: agroguardian@gmail.com</p>
+      </div>
+    </section>
+
+
+    <footer>
+      <div class="container">
+        <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

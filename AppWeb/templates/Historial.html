@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial - AgroGuardian</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .btn-borrar {
+      margin-top: 20px;
+      background-color: #c0392b;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-borrar:hover {
+      background-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1>AgroGuardian</h1>
+      <nav>
+        <ul>
+      
+          <li><a href="file:///C:/Prueba%202%20tesina/agroguardian/dashboard.html#historial">Volver al Panel</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+    
+  </header>
+
+  <main class="form-container" style="margin-top: 100px;">
+    <div class="container">
+      <h2>Historial de Análisis</h2>
+      <div id="tabla-historial"></div>
+      <button class="btn-borrar" onclick="borrarHistorial()">Borrar Historial</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const contenedor = document.getElementById("tabla-historial");
+    const historial = JSON.parse(localStorage.getItem("historial")) || [];
+
+    if (historial.length === 0) {
+      contenedor.innerHTML = "<p>No hay datos en el historial.</p>";
+    } else {
+      const tabla = document.createElement("table");
+      tabla.innerHTML = `
+        <tr>
+          <th>Fecha</th>
+          <th>Grano</th>
+          <th>Capacidad (kg)</th>
+          <th>Ocupación (kg)</th>
+          <th>Humedad (%)</th>
+          <th>Temperatura (°C)</th>
+        </tr>
+      `;
+      historial.forEach(item => {
+        tabla.innerHTML += `
+          <tr>
+            <td>${item.fecha}</td>
+            <td>${item.grano}</td>
+            <td>${item.capacidad}</td>
+            <td>${item.ocupacion}</td>
+            <td>${item.humedad}</td>
+            <td>${item.temperatura}</td>
+          </tr>
+        `;
+      });
+      contenedor.appendChild(tabla);
+    }
+
+    function borrarHistorial() {
+      if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
+        localStorage.removeItem("historial");
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
