@@ -137,18 +137,549 @@ footer {
   }
 }
 
-#beneficios{
-  display: none;
-   margin: auto;
-  font-size: 30px;
+/* Estilos para mensajes flash */
+.alert {
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 500px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  transition: opacity 0.3s ease;
 }
-#contacto{
-  display: none;
-   margin: auto;
-  font-size: 30px;
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
-#caracteristicas{
-  display: none;
-  margin: auto;
-  font-size: 30px;
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Estilos para secciones de la página principal */
+#beneficios, #contacto, #caracteristicas {
+  display: block;
+  margin: 40px auto;
+  padding: 40px 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  max-width: 800px;
+}
+
+#beneficios h2, #contacto h2, #caracteristicas h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+#beneficios ul, #caracteristicas ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#beneficios li, #caracteristicas li {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f8f9fa;
+  border-left: 4px solid #4CAF50;
+  border-radius: 4px;
+  font-size: 1.1em;
+}
+
+#contacto p {
+  font-size: 1.2em;
+  margin: 15px 0;
+  text-align: center;
+}
+
+/* Estilos para la sección hero */
+.hero {
+  display: block;
+  padding: 120px 20px 80px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  margin-top: 80px;
+}
+
+.hero h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.hero p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 15px 30px;
+  font-size: 1.1em;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background-color: white;
+  color: #4CAF50;
+}
+
+/* Estilos para formularios de autenticación */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.form-group small {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.form-footer p {
+  margin: 10px 0;
+}
+
+.form-footer a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para formularios de autenticación específicos */
+.form-container {
+  display: block;
+  padding: 40px 0;
+  text-align: center;
+  margin-top: 80px;
+  min-height: calc(100vh - 160px);
+}
+
+.form-container h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+/* Estilos para páginas de contenido */
+.page-content {
+  padding: 120px 20px 80px;
+  min-height: calc(100vh - 160px);
+}
+
+.page-content h1 {
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.page-subtitle {
+  font-size: 1.3em;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #666;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilos para grid de características */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.feature-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Estilos para grid de beneficios */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.benefit-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+}
+
+.benefit-icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.benefit-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.benefit-highlight {
+  background: #e8f5e8;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #4CAF50;
+  font-size: 0.9em;
+  color: #2c3e50;
+}
+
+/* Estilos para sección ROI */
+.roi-section {
+  background: #f8f9fa;
+  padding: 50px;
+  border-radius: 10px;
+  margin: 50px 0;
+  text-align: center;
+}
+
+.roi-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.roi-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.roi-stat {
+  text-align: center;
+}
+
+.roi-number {
+  font-size: 3em;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.roi-label {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.roi-description {
+  font-size: 0.9em;
+  color: #888;
+}
+
+/* Estilos para página de contacto */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin: 50px 0;
+}
+
+.contact-info h2, .contact-form-section h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+  font-size: 2em;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.contact-details h3 {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.contact-details p {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.contact-details small {
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* Estilos para formulario de contacto */
+.contact-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form select, .contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.contact-form select:focus, .contact-form textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Estilos para FAQ */
+.faq-section {
+  margin: 50px 0;
+}
+
+.faq-section h2 {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #2c3e50;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.faq-item {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item h3 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.faq-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Estilos para sección CTA */
+.cta-section {
+  background: #2c3e50;
+  color: white;
+  padding: 50px;
+  border-radius: 10px;
+  text-align: center;
+  margin: 50px 0;
+}
+
+.cta-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.cta-section p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2em;
+  }
+  
+  .hero p {
+    font-size: 1.1em;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 200px;
+  }
+  
+  #beneficios h2, #contacto h2, #caracteristicas h2 {
+    font-size: 2em;
+  }
+
+  .page-content h1 {
+    font-size: 2.2em;
+  }
+
+  .page-subtitle {
+    font-size: 1.1em;
+  }
+
+  .features-grid, .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .roi-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-section {
+    padding: 30px 20px;
+  }
+
+  .cta-section h2 {
+    font-size: 2em;
+  }
 }

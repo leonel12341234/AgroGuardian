@@ -14,112 +14,40 @@
         <h1>AgroGuardian</h1>
         <nav>
           <ul>
-            <li><a href="#login" id="loginLink">Iniciar sesión</a></li>
-            <li><a href="#register" id="registerLink">Registrarse</a></li>
-            <li><a href="#caracteristicas" id="carac">Características</a></li>
-            <li><a href="#beneficios" id="benef">Beneficios</a></li>
-            <li><a href="#contacto" id="contactLink">Contacto</a></li>
+            <li><a href="{{ url_for('home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+            <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+            <li><a href="{{ url_for('caracteristicas') }}">Características</a></li>
+            <li><a href="{{ url_for('beneficios') }}">Beneficios</a></li>
+            <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
-<section id="login" class="form-container">
-  <div class="container">
-    <h2>Iniciar sesión</h2>
-    <form onsubmit="handleLogin(event)">
-      <label for="loginEmail">Correo electrónico:</label>
-      <input type="email" id="loginEmail" name="email" required />
-
-      <label for="loginPassword">Contraseña:</label>
-      <input type="password" id="loginPassword" name="password" required />
-
-      <button class="leo" type="submit">Iniciar sesión</button>
-    </form>
-  </div>
-</section>
-
-<section id="register" class="form-container">
-  <div class="container">
-    <h2>Registrarse</h2>
-    <form onsubmit="handleRegister(event)">
-      <label for="registerName">Nombre completo:</label>
-      <input type="text" id="registerName" name="name" required />
-
-      <label for="registerEmail">Correo electrónico:</label>
-      <input type="email" id="registerEmail" name="email" required />
-
-      <label for="registerPassword">Contraseña:</label>
-      <input type="password" id="registerPassword" name="password" required />
-
-      <label for="registerConfirmPassword">Confirmar contraseña:</label>
-      <input type="password" id="registerConfirmPassword" name="confirmPassword" required />
-
-      <button type="submit">Registrarse</button>
-    </form>
-  </div>
-</section>
-
-
-   
-    <section id="caracteristicas">
-      <div class="container">
-        <h2>Características de la App</h2>
-        <ul>
-          <li>
-            Monitoreo en tiempo real del silo: temperatura, humedad y peso del
-            grano.
-          </li>
-          <li>
-            Identificación del tipo de grano y visualización desde el celular.
-          </li>
-          <li>
-            Sistema de alertas ante condiciones críticas con recomendaciones
-            automáticas.
-          </li>
-          <li>
-            Valor de mercado actualizado e integración con fuentes oficiales.
-          </li>
-          <li>
-            Historial completo de campañas de almacenamiento con estadísticas y
-            trazabilidad.
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="beneficios">
-      <div class="container">
-        <h2>Impacto y Beneficios</h2>
-        <ul>
-          <li>Previene pérdidas económicas por deterioro de la mercadería.</li>
-          <li>Ofrece control total del silo en tiempo real.</li>
-          <li>
-            Facilita decisiones estratégicas al vincular calidad con precios de
-            mercado.
-          </li>
-          <li>Promueve buenas prácticas con mantenimiento preventivo.</li>
-          <li>
-            Genera trazabilidad completa y útil para auditorías o
-            certificaciones.
-          </li>
-        </ul>
-      </div>
+    <section class="hero">
+        <div class="container">
+            <h1>Bienvenido a AgroGuardian</h1>
+            <p>Monitoreo inteligente de silos para optimizar tu producción agrícola</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('register') }}" class="btn-primary">Comenzar ahora</a>
+                <a href="{{ url_for('login') }}" class="btn-secondary">Iniciar sesión</a>
+            </div>
+        </div>
     </section>
 
   
-    <section id="contacto">
-      <div class="container">
-        <h2>Contacto</h2>
-        <p>
-          ¿Tienes preguntas o necesitas más información? Contáctanos:
-          3571-525897
-        </p>
-        <p>Email: agroguardian@gmail.com</p>
-      </div>
-    </section>
-
 
     <footer>
       <div class="container">

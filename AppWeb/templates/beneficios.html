@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AgroGuardian - Beneficios</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>AgroGuardian</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+                    <li><a href="{{ url_for('caracteristicas') }}">Características</a></li>
+                    <li><a href="{{ url_for('beneficios') }}">Beneficios</a></li>
+                    <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-content">
+            <div class="container">
+                <h1>Beneficios de AgroGuardian</h1>
+                <p class="page-subtitle">Descubre cómo AgroGuardian puede transformar tu operación agrícola y maximizar tus beneficios</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💸</div>
+                        <h3>Previene Pérdidas Económicas</h3>
+                        <p>Evita el deterioro de la mercadería mediante el monitoreo constante de las condiciones del silo. Detecta problemas antes de que se conviertan en pérdidas significativas.</p>
+                        <div class="benefit-highlight">
+                            <strong>Ahorro promedio: 15-25% en pérdidas por deterioro</strong>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎯</div>
+                        <h3>Control Total del Silo</h3>
+                        <p>Mantén el control absoluto de tus silos en tiempo real. Accede a información detallada desde cualquier lugar y en cualquier momento.</p>
+                        <div class="benefit-highlight">
+                            <strong>Disponibilidad 24/7 desde cualquier dispositivo</strong>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📈</div>
+                        <h3>Decisiones Estratégicas</h3>
+                        <p>Vincula la calidad de tu producción con los precios de mercado actualizados para tomar decisiones informadas sobre cuándo y cómo vender.</p>
+                        <div class="benefit-highlight">
+                            <strong>Optimización de precios de venta</strong>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔧</div>
+                        <h3>Mantenimiento Preventivo</h3>
+                        <p>Promueve buenas prácticas con mantenimiento preventivo basado en datos reales. Extiende la vida útil de tus equipos y reduce costos de reparación.</p>
+                        <div class="benefit-highlight">
+                            <strong>Reducción del 30% en costos de mantenimiento</strong>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">📋</div>
+                        <h3>Trazabilidad Completa</h3>
+                        <p>Genera trazabilidad completa y útil para auditorías o certificaciones. Mantén registros detallados de toda tu producción.</p>
+                        <div class="benefit-highlight">
+                            <strong>Cumplimiento normativo garantizado</strong>
+                        </div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⚡</div>
+                        <h3>Eficiencia Operativa</h3>
+                        <p>Automatiza procesos de monitoreo y reduce el tiempo dedicado a tareas manuales. Enfócate en lo que realmente importa: tu negocio.</p>
+                        <div class="benefit-highlight">
+                            <strong>Ahorro de 10-15 horas semanales</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-section">
+                    <h2>Retorno de Inversión</h2>
+                    <div class="roi-stats">
+                        <div class="roi-stat">
+                            <div class="roi-number">6</div>
+                            <div class="roi-label">meses</div>
+                            <div class="roi-description">Tiempo promedio de recuperación de inversión</div>
+                        </div>
+                        <div class="roi-stat">
+                            <div class="roi-number">300%</div>
+                            <div class="roi-label">ROI</div>
+                            <div class="roi-description">Retorno de inversión en el primer año</div>
+                        </div>
+                        <div class="roi-stat">
+                            <div class="roi-number">95%</div>
+                            <div class="roi-label">satisfacción</div>
+                            <div class="roi-description">Clientes satisfechos con el servicio</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <h2>¿Quieres experimentar estos beneficios?</h2>
+                    <p>Únete a cientos de productores que ya están optimizando sus operaciones con AgroGuardian</p>
+                    <div class="cta-buttons">
+                        <a href="{{ url_for('register') }}" class="btn-primary">Comenzar Ahora</a>
+                        <a href="{{ url_for('contacto') }}" class="btn-secondary">Solicitar Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

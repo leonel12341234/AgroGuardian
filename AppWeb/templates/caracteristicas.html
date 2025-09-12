@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AgroGuardian - Características</title>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>AgroGuardian</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('login') }}">Iniciar sesión</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrarse</a></li>
+                    <li><a href="{{ url_for('caracteristicas') }}">Características</a></li>
+                    <li><a href="{{ url_for('beneficios') }}">Beneficios</a></li>
+                    <li><a href="{{ url_for('contacto') }}">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-content">
+            <div class="container">
+                <h1>Características de AgroGuardian</h1>
+                <p class="page-subtitle">Descubre todas las funcionalidades que hacen de AgroGuardian la solución perfecta para el monitoreo de silos</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌡️</div>
+                        <h3>Monitoreo en Tiempo Real</h3>
+                        <p>Controla la temperatura, humedad y peso del grano en tiempo real desde cualquier dispositivo. Recibe alertas instantáneas cuando las condiciones cambien.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Acceso Móvil</h3>
+                        <p>Identifica el tipo de grano y visualiza toda la información desde tu celular. Interfaz optimizada para dispositivos móviles y tablets.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⚠️</div>
+                        <h3>Sistema de Alertas Inteligente</h3>
+                        <p>Recibe notificaciones automáticas ante condiciones críticas con recomendaciones específicas para cada situación detectada.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Valor de Mercado Actualizado</h3>
+                        <p>Integración con fuentes oficiales para obtener precios de mercado actualizados y tomar decisiones informadas sobre tu producción.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Historial Completo</h3>
+                        <p>Mantén un registro detallado de todas las campañas de almacenamiento con estadísticas completas y trazabilidad total.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Mantenimiento Preventivo</h3>
+                        <p>Recibe recomendaciones de mantenimiento basadas en los datos históricos para optimizar el rendimiento de tus silos.</p>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <h2>¿Listo para comenzar?</h2>
+                    <p>Únete a AgroGuardian y transforma la gestión de tus silos</p>
+                    <div class="cta-buttons">
+                        <a href="{{ url_for('register') }}" class="btn-primary">Registrarse Ahora</a>
+                        <a href="{{ url_for('contacto') }}" class="btn-secondary">Más Información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
