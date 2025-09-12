@@ -9,9 +9,9 @@ app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave segura
 # Configuración de la base de datos MySQL
 DB_CONFIG = {
     'host': 'localhost',
-    'port': 3307,  # Puerto por defecto de XAMPP
+    'port': 3306,  # Puerto por defecto de XAMPP
     'user': 'root',
-    'password': '',  # Contraseña por defecto de XAMPP (vacía)
+    'password': 'admin123',  
     'database': 'agroguardian'
 }
 
@@ -38,12 +38,12 @@ def login():
         if connection:
             try:
                 cursor = connection.cursor(dictionary=True)
-                cursor.execute("SELECT * FROM usuario WHERE Gmail = %s", (email,))
+                cursor.execute("SELECT * FROM usuario WHERE email = %s", (email,))
                 user = cursor.fetchone()
                 
-                if user and check_password_hash(user['contraseña'], password):
+                if user and check_password_hash(user['password'], password):
                     session['user_id'] = user['id']
-                    session['user_email'] = user['Gmail']
+                    session['user_email'] = user['email']
                     flash('Inicio de sesión exitoso', 'success')
                     return redirect(url_for('dashboard'))
                 else:
@@ -84,14 +84,14 @@ def register():
             try:
                 cursor = connection.cursor()
                 # Verificar si el email ya existe
-                cursor.execute("SELECT id FROM usuario WHERE Gmail = %s", (email,))
+                cursor.execute("SELECT id FROM usuario WHERE email = %s", (email,))
                 if cursor.fetchone():
                     flash('El email ya está registrado', 'error')
                     return render_template('register.html')
                 
                 # Insertar nuevo usuario
                 cursor.execute(
-                    "INSERT INTO usuario (Gmail, contraseña) VALUES (%s, %s)",
+                    "INSERT INTO usuario (email, password) VALUES (%s, %s)",
                     (email, hashed_password)
                 )
                 connection.commit()

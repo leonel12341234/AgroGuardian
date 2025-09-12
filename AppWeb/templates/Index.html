@@ -36,16 +36,18 @@
         {% endif %}
     {% endwith %}
 
-    <section class="hero">
-        <div class="container">
-            <h1>Bienvenido a AgroGuardian</h1>
-            <p>Monitoreo inteligente de silos para optimizar tu producción agrícola</p>
-            <div class="hero-buttons">
-                <a href="{{ url_for('register') }}" class="btn-primary">Comenzar ahora</a>
-                <a href="{{ url_for('login') }}" class="btn-secondary">Iniciar sesión</a>
+    <main style="flex: 1;">
+        <section class="hero">
+            <div class="container">
+                <h1>Bienvenido a AgroGuardian</h1>
+                <p>Monitoreo inteligente de silos para optimizar tu producción agrícola</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('register') }}" class="btn-primary">Comenzar ahora</a>
+                    <a href="{{ url_for('login') }}" class="btn-secondary">Iniciar sesión</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
   
 

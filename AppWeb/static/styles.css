@@ -10,7 +10,7 @@ body {
   background-size: cover;
   background-position: center;
   color: #3b3a3a;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -123,6 +123,7 @@ footer {
   padding: 20px 0;
   text-align: center;
   margin-top: auto;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -324,7 +325,7 @@ footer {
   padding: 40px 0;
   text-align: center;
   margin-top: 80px;
-  min-height: calc(100vh - 160px);
+  flex: 1;
 }
 
 .form-container h2 {
@@ -336,7 +337,7 @@ footer {
 /* Estilos para páginas de contenido */
 .page-content {
   padding: 120px 20px 80px;
-  min-height: calc(100vh - 160px);
+  flex: 1;
 }
 
 .page-content h1 {
