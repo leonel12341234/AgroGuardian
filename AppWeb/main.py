@@ -25,6 +25,59 @@ def get_db_connection():
         print(f"Error conectando a la base de datos: {err}")
         return None
 
+def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: int):
+    """Devuelve el mensaje recomendado y si está dentro/fuera de rango para el grano dado."""
+    if not tipo_grano:
+        tipo = ''
+    else:
+        tipo = tipo_grano.strip().lower()
+
+    # Rangos recomendados por grano
+    rangos = {
+        'soja': {'humedad_max': 13, 'temp_min': 25, 'temp_max': 30},
+        'maiz': {'humedad_max': 14, 'temp_min': 25, 'temp_max': 30},
+        'maíz': {'humedad_max': 14, 'temp_min': 25, 'temp_max': 30},
+        'trigo': {'humedad_max': 14, 'temp_min': 20, 'temp_max': 25},
+        'girasol': {'humedad_max': 10, 'temp_min': 20, 'temp_max': 25},
+        'cebada': {'humedad_max': 13, 'temp_min': 20, 'temp_max': 25},
+    }
+
+    # Normalización para cubrir "maíz" y "maiz"
+    tipo_clave = 'maíz' if tipo in ('maiz', 'maíz') else tipo
+    r = rangos.get(tipo_clave)
+    if not r:
+        # Si no se reconoce el grano, usar un rango por defecto amplio para no falsear
+        r = {'humedad_max': 14, 'temp_min': 20, 'temp_max': 30}
+
+    dentro_humedad = humedad <= r['humedad_max']
+    dentro_temperatura = r['temp_min'] <= temperatura <= r['temp_max']
+
+    if not dentro_humedad or not dentro_temperatura and (humedad > r['humedad_max'] or temperatura > r['temp_max']):
+        mensaje = f"⚠️ Atención: condiciones críticas para {tipo_grano}. Riesgo de deterioro. Recomendación: ventilar el silo y controlar periódicamente."
+        estado = 'critico'
+    elif humedad < 0 or temperatura < -50:
+        # Valores imposibles, fallback
+        mensaje = f"ℹ️ Valores atípicos detectados para {tipo_grano}. Verifica los sensores."
+        estado = 'atipico'
+    elif humedad < r['humedad_max'] or temperatura < r['temp_min']:
+        if dentro_humedad and dentro_temperatura:
+            # Ya cubierto por el caso óptimo más abajo, no entra aquí
+            pass
+        mensaje = f"ℹ️ Condiciones por debajo de lo óptimo en {tipo_grano}. Recomendación: verificar la hermeticidad del silo o considerar un calentamiento controlado para evitar daños."
+        estado = 'bajo'
+    else:
+        mensaje = f"✅ Condiciones óptimas para {tipo_grano}. El silo se encuentra en buen estado."
+        estado = 'optimo'
+
+    analisis = {
+        'mensaje': mensaje,
+        'estado': estado,
+        'humedad_max': r['humedad_max'],
+        'temp_min': r['temp_min'],
+        'temp_max': r['temp_max'],
+    }
+    return analisis
+
 @app.route('/')
 def home():
     return render_template('Index.html')
@@ -205,6 +258,7 @@ def crear_silo():
             ),
         )
         connection.commit()
+        nuevo_id = cursor.lastrowid
     except mysql.connector.Error as err:
         connection.rollback()
         print(f"Error DB (silos insert): {err}")
@@ -223,7 +277,8 @@ def crear_silo():
         porcentaje_ocupacion = round((ocupacion_val / capacidad_val) * 100, 2) if capacidad_val else 0
     except Exception:
         porcentaje_ocupacion = 0
-    estado = '⚠️ Atención: condiciones críticas detectadas.' if (humedad_val > 14 or temperatura_val > 30) else '✅ Condiciones normales.'
+    analisis_grano = analizar_condiciones_por_grano(tipo_grano, humedad_val, temperatura_val)
+    estado = analisis_grano['mensaje']
 
     if request.is_json:
         return jsonify({
@@ -236,12 +291,68 @@ def crear_silo():
                 'capacidad': capacidad_val,
                 'humedad': humedad_val,
                 'temperatura': temperatura_val,
-                'tipo_grano': tipo_grano
+                'tipo_grano': tipo_grano,
+                'rangos': {
+                    'humedad_max': analisis_grano['humedad_max'],
+                    'temp_min': analisis_grano['temp_min'],
+                    'temp_max': analisis_grano['temp_max'],
+                }
             }
         })
     else:
-        flash('Datos del silo guardados correctamente.', 'success')
+        return redirect(url_for('resultados', silo_id=nuevo_id))
+
+@app.route('/resultados/<int:silo_id>')
+def resultados(silo_id: int):
+    if 'user_id' not in session:
+        flash('Debes iniciar sesión para acceder a los resultados', 'error')
+        return redirect(url_for('login'))
+
+    connection = get_db_connection()
+    if not connection:
+        flash('No se pudo conectar a la base de datos.', 'error')
         return redirect(url_for('dashboard'))
+
+    registro = None
+    try:
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id, user_id, tipo_grano, capacidad, Ocupacion, Humedad, Temperatura, fecha FROM silos WHERE id = %s AND user_id = %s",
+            (silo_id, session['user_id'])
+        )
+        registro = cursor.fetchone()
+        if not registro:
+            flash('Registro no encontrado.', 'error')
+            return redirect(url_for('dashboard'))
+    except mysql.connector.Error as err:
+        print(f"Error obteniendo resultados: {err}")
+        flash('Error al obtener resultados.', 'error')
+        return redirect(url_for('dashboard'))
+    finally:
+        try:
+            cursor.close()
+        except Exception:
+            pass
+        connection.close()
+
+    analisis_grano = analizar_condiciones_por_grano(
+        registro['tipo_grano'], int(registro['Humedad']), int(registro['Temperatura'])
+    )
+
+    porcentaje_ocupacion = 0
+    try:
+        capacidad_val = int(registro['capacidad'])
+        ocupacion_val = int(registro['Ocupacion'])
+        porcentaje_ocupacion = round((ocupacion_val / capacidad_val) * 100, 2) if capacidad_val else 0
+    except Exception:
+        porcentaje_ocupacion = 0
+
+    return render_template(
+        'Resultados.html',
+        registro=registro,
+        analisis=analisis_grano,
+        porcentaje_ocupacion=porcentaje_ocupacion,
+    )
 
 @app.route('/historial')
 def historial():
@@ -262,6 +373,13 @@ def historial():
             (session['user_id'],)
         )
         registros = cursor.fetchall() or []
+        # Agregar mensaje de recomendación por cada registro
+        for r in registros:
+            try:
+                anal = analizar_condiciones_por_grano(r['tipo_grano'], int(r['Humedad']), int(r['Temperatura']))
+                r['recomendacion'] = anal['mensaje']
+            except Exception:
+                r['recomendacion'] = '—'
     except mysql.connector.Error as err:
         print(f"Error consultando silos: {err}")
         flash('Error al cargar el historial.', 'error')

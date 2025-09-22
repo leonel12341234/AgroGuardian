@@ -71,6 +71,7 @@
             <th>Ocupación (kg)</th>
             <th>Humedad (%)</th>
             <th>Temperatura (°C)</th>
+            <th>Recomendación</th>
           </tr>
           {% for r in registros %}
           <tr>
@@ -80,6 +81,7 @@
             <td>{{ r['Ocupacion'] }}</td>
             <td>{{ r['Humedad'] }}</td>
             <td>{{ r['Temperatura'] }}</td>
+            <td>{{ r['recomendacion'] }}</td>
           </tr>
           {% endfor %}
         </table>

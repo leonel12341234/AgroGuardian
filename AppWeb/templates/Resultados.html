@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resultados - AgroGuardian</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1>AgroGuardian</h1>
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Inicio</a></li>
+          <li><a href="{{ url_for('dashboard') }}">Panel</a></li>
+          <li><a href="{{ url_for('historial') }}">Historial</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="form-container" style="margin-top: 100px;">
+    <div class="container">
+      <h2>Resultados del análisis</h2>
+
+      <div style="background:#fff; border-radius:8px; padding:16px;">
+        <p><strong>Fecha:</strong> {{ registro['fecha'] }}</p>
+        <p><strong>Grano:</strong> {{ registro['tipo_grano'] }}</p>
+        <p><strong>Capacidad:</strong> {{ registro['capacidad'] }} kg</p>
+        <p><strong>Ocupación:</strong> {{ registro['Ocupacion'] }} kg ({{ porcentaje_ocupacion }}%)</p>
+        <p><strong>Humedad medida:</strong> {{ registro['Humedad'] }}% (óptima ≤ {{ analisis['humedad_max'] }}%)</p>
+        <p><strong>Temperatura medida:</strong> {{ registro['Temperatura'] }} °C (óptima {{ analisis['temp_min'] }}–{{ analisis['temp_max'] }} °C)</p>
+        <hr />
+        <p><strong>Recomendación:</strong> {{ analisis['mensaje'] }}</p>
+      </div>
+
+      <div style="margin-top:16px;">
+        <a href="{{ url_for('dashboard') }}" class="btn">Volver al Panel</a>
+        <a href="{{ url_for('historial') }}" class="btn">Ver Historial</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>2025 AgroGuardian. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
