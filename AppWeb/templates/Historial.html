@@ -61,8 +61,32 @@
   <main class="form-container" style="margin-top: 100px;">
     <div class="container">
       <h2>Historial de Análisis</h2>
-      <div id="tabla-historial"></div>
-      <button class="btn-borrar" onclick="borrarHistorial()">Borrar Historial</button>
+      <div>
+        {% if registros and registros|length > 0 %}
+        <table style="background:#fff;">
+          <tr>
+            <th>Fecha</th>
+            <th>Grano</th>
+            <th>Capacidad (kg)</th>
+            <th>Ocupación (kg)</th>
+            <th>Humedad (%)</th>
+            <th>Temperatura (°C)</th>
+          </tr>
+          {% for r in registros %}
+          <tr>
+            <td>{{ r['fecha'] }}</td>
+            <td>{{ r['tipo_grano'] }}</td>
+            <td>{{ r['capacidad'] }}</td>
+            <td>{{ r['Ocupacion'] }}</td>
+            <td>{{ r['Humedad'] }}</td>
+            <td>{{ r['Temperatura'] }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+        <p>No hay datos en el historial.</p>
+        {% endif %}
+      </div>
     </div>
   </main>
 
@@ -73,44 +97,6 @@
   </footer>
 
   <script>
-    const contenedor = document.getElementById("tabla-historial");
-    const historial = JSON.parse(localStorage.getItem("historial")) || [];
-
-    if (historial.length === 0) {
-      contenedor.innerHTML = "<p>No hay datos en el historial.</p>";
-    } else {
-      const tabla = document.createElement("table");
-      tabla.innerHTML = `
-        <tr>
-          <th>Fecha</th>
-          <th>Grano</th>
-          <th>Capacidad (kg)</th>
-          <th>Ocupación (kg)</th>
-          <th>Humedad (%)</th>
-          <th>Temperatura (°C)</th>
-        </tr>
-      `;
-      historial.forEach(item => {
-        tabla.innerHTML += `
-          <tr>
-            <td>${item.fecha}</td>
-            <td>${item.grano}</td>
-            <td>${item.capacidad}</td>
-            <td>${item.ocupacion}</td>
-            <td>${item.humedad}</td>
-            <td>${item.temperatura}</td>
-          </tr>
-        `;
-      });
-      contenedor.appendChild(tabla);
-    }
-
-    function borrarHistorial() {
-      if (confirm("¿Estás seguro de que querés borrar todo el historial?")) {
-        localStorage.removeItem("historial");
-        location.reload();
-      }
-    }
   </script>
 </body>
 </html>

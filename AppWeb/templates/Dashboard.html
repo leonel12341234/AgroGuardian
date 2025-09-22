@@ -56,6 +56,18 @@
     </div>
   </main>
 
+  <div id="analisisModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:20px; max-width:500px; width:90%; border-radius:8px;">
+      <h3>Análisis del Silo</h3>
+      <p id="modal_estado"></p>
+      <p id="modal_ocupacion"></p>
+      <p id="modal_detalles"></p>
+      <div style="text-align:right; margin-top:16px;">
+        <button id="cerrarModal" type="button">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <p>2025 AgroGuardian. Todos los derechos reservados.</p>
@@ -69,7 +81,7 @@
       console.log('Usuario autenticado en el dashboard');
     });
 
-    document.getElementById("formulario").addEventListener("submit", function (e) {
+    document.getElementById("formulario").addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const grano = document.getElementById("tipo_grano").value;
@@ -99,10 +111,42 @@
         humedad,
         temperatura
       };
-
       const historial = JSON.parse(localStorage.getItem("historial")) || [];
       historial.push(entrada);
       localStorage.setItem("historial", JSON.stringify(historial));
+
+      try {
+        const resp = await fetch("{{ url_for('crear_silo') }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tipo_grano: grano,
+            capacidad,
+            ocupacion,
+            humedad,
+            temperatura
+          })
+        });
+        const data = await resp.json();
+        if (!resp.ok || !data.ok) {
+          alert(data.message || "Error al guardar en la base de datos");
+          return;
+        }
+        const analisis = data.analisis || {};
+        document.getElementById('modal_estado').textContent = `Estado: ${analisis.estado || estado}`;
+        const porc = (analisis.porcentaje_ocupacion !== undefined) ? analisis.porcentaje_ocupacion : porcentaje;
+        document.getElementById('modal_ocupacion').textContent = `Ocupación: ${analisis.ocupacion ?? ocupacion} kg / ${analisis.capacidad ?? capacidad} kg (${porc}%)`;
+        document.getElementById('modal_detalles').textContent = `Humedad: ${analisis.humedad ?? humedad}%, Temperatura: ${analisis.temperatura ?? temperatura}°C, Grano: ${analisis.tipo_grano ?? grano}`;
+        const modal = document.getElementById('analisisModal');
+        modal.style.display = 'flex';
+      } catch (err) {
+        alert('Error de red al guardar datos');
+        console.error(err);
+      }
+    });
+
+    document.getElementById('cerrarModal').addEventListener('click', function() {
+      document.getElementById('analisisModal').style.display = 'none';
     });
   </script>
 </body>
