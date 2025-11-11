@@ -207,11 +207,11 @@ footer {
 /* Estilos para la sección hero */
 .hero {
   display: block;
-  padding: 120px 20px 80px;
+ 
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
+
   color: white;
-  margin-top: 80px;
+  margin-top: 150px;
 }
 
 .hero h1 {
