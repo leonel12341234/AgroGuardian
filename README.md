@@ -6,7 +6,7 @@ AgroGuardian es una **aplicación web** diseñada específicamente para producto
 
 El objetivo principal es **mejorar el control, la conservación y la eficiencia** del almacenamiento. Esto se logra mediante la implementación de algoritmos inteligentes y un sistema de **monitoreo en tiempo real** de las condiciones internas del silo.
 
-Este proyecto fue desarrollado como parte de la tesina final de la especialidad en Informática en la **Escuela PROA Río Tercero (Córdoba, Argentina)** por los estudiantes **Leonel Soto (17 años)** y **Dylan Cabrera**.
+Este proyecto fue desarrollado como parte de la tesina final de la especialidad en Informática en la **Escuela PROA Río Tercero (Córdoba, Argentina)** por los estudiantes **Leonel Soto ** y **Dylan Cabrera**.
 
 ---
 
@@ -54,7 +54,7 @@ AgroGuardian is a **web application** designed specifically for agricultural pro
 
 The main objective is to **improve the control, preservation, and efficiency** of storage. This is achieved through the implementation of intelligent algorithms and a **real-time monitoring** system of the silo's internal conditions.
 
-This project was developed as part of the final thesis for the Computer Science specialization at **PROA Río Tercero School (Córdoba, Argentina)** by students **Leonel Soto (17 years old)** and **Dylan Cabrera**.
+This project was developed as part of the final thesis for the Computer Science specialization at **PROA Río Tercero School (Córdoba, Argentina)** by students **Leonel Soto ** and **Dylan Cabrera**.
 
 
 ---
