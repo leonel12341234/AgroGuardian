@@ -45,13 +45,6 @@ AgroGuardian utiliza estos rangos para emitir alertas y recomendaciones precisas
 
 ---
 
-## 🚀 Guía de Instalación y Ejecución
-
-### 1. Clonar el repositorio
-
-```bash
-git clone [https://github.com/tu_usuario/agroguardian.git](https://github.com/tu_usuario/agroguardian.git)
-cd agroguardian
 
 # AgroGuardian 🌾 | Intelligent Grain Monitoring
 
