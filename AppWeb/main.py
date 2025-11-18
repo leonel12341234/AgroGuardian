@@ -4,8 +4,10 @@ import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
+
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'  # Cambia esto por una clave segura
+
 
 # Configuración de la base de datos MySQL
 DB_CONFIG = {
@@ -16,6 +18,7 @@ DB_CONFIG = {
     'database': 'agroguardian'
 }
 
+
 def get_db_connection():
     """Establece conexión con la base de datos MySQL"""
     try:
@@ -25,12 +28,14 @@ def get_db_connection():
         print(f"Error conectando a la base de datos: {err}")
         return None
 
+
 def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: int):
     """Devuelve el mensaje recomendado y si está dentro/fuera de rango para el grano dado."""
     if not tipo_grano:
         tipo = ''
     else:
         tipo = tipo_grano.strip().lower()
+
 
     # Rangos recomendados por grano
     rangos = {
@@ -42,6 +47,7 @@ def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: i
         'cebada': {'humedad_max': 13, 'temp_min': 20, 'temp_max': 25},
     }
 
+
     # Normalización para cubrir "maíz" y "maiz"
     tipo_clave = 'maíz' if tipo in ('maiz', 'maíz') else tipo
     r = rangos.get(tipo_clave)
@@ -49,8 +55,10 @@ def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: i
         # Si no se reconoce el grano, usar un rango por defecto amplio para no falsear
         r = {'humedad_max': 14, 'temp_min': 20, 'temp_max': 30}
 
+
     dentro_humedad = humedad <= r['humedad_max']
     dentro_temperatura = r['temp_min'] <= temperatura <= r['temp_max']
+
 
     if not dentro_humedad or not dentro_temperatura and (humedad > r['humedad_max'] or temperatura > r['temp_max']):
         mensaje = f"⚠️ Atención: condiciones críticas para {tipo_grano}. Riesgo de deterioro. Recomendación: ventilar el silo y controlar periódicamente."
@@ -69,6 +77,7 @@ def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: i
         mensaje = f"✅ Condiciones óptimas para {tipo_grano}. El silo se encuentra en buen estado."
         estado = 'optimo'
 
+
     analisis = {
         'mensaje': mensaje,
         'estado': estado,
@@ -78,23 +87,25 @@ def analizar_condiciones_por_grano(tipo_grano: str, humedad: int, temperatura: i
     }
     return analisis
 
+
 @app.route('/')
 def home():
     return render_template('Index.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        
+       
         connection = get_db_connection()
         if connection:
             try:
                 cursor = connection.cursor(dictionary=True)
                 cursor.execute("SELECT * FROM usuario WHERE email = %s", (email,))
                 user = cursor.fetchone()
-                
+               
                 if user and check_password_hash(user['password'], password):
                     session['user_id'] = user['id']
                     session['user_email'] = user['email']
@@ -110,8 +121,9 @@ def login():
                 connection.close()
         else:
             flash('Error de conexión a la base de datos', 'error')
-    
+   
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -120,19 +132,19 @@ def register():
         email = request.form['email']
         password = request.form['password']
         confirm_password = request.form['confirmPassword']
-        
+       
         # Validaciones
         if password != confirm_password:
             flash('Las contraseñas no coinciden', 'error')
             return render_template('register.html')
-        
+       
         if len(password) < 6:
             flash('La contraseña debe tener al menos 6 caracteres', 'error')
             return render_template('register.html')
-        
+       
         # Hash de la contraseña
         hashed_password = generate_password_hash(password)
-        
+       
         connection = get_db_connection()
         if connection:
             try:
@@ -142,7 +154,7 @@ def register():
                 if cursor.fetchone():
                     flash('El email ya está registrado', 'error')
                     return render_template('register.html')
-                
+               
                 # Insertar nuevo usuario
                 cursor.execute(
                     "INSERT INTO usuario (email, password) VALUES (%s, %s)",
@@ -151,7 +163,7 @@ def register():
                 connection.commit()
                 flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
                 return redirect(url_for('login'))
-                
+               
             except mysql.connector.Error as err:
                 flash('Error en la base de datos', 'error')
                 print(f"Error: {err}")
@@ -160,14 +172,16 @@ def register():
                 connection.close()
         else:
             flash('Error de conexión a la base de datos', 'error')
-    
+   
     return render_template('register.html')
+
 
 @app.route('/logout')
 def logout():
     session.clear()
     flash('Sesión cerrada exitosamente', 'info')
     return redirect(url_for('home'))
+
 
 @app.route('/dashboard')
 def dashboard():
@@ -176,11 +190,13 @@ def dashboard():
         return redirect(url_for('login'))
     return render_template('Dashboard.html')
 
+
 @app.route('/silos', methods=['POST'])
 def crear_silo():
     if 'user_id' not in session:
         flash('Debes iniciar sesión para guardar datos del silo', 'error')
         return redirect(url_for('login'))
+
 
     if request.is_json:
         payload = request.get_json(silent=True) or {}
@@ -196,6 +212,7 @@ def crear_silo():
         humedad = request.form.get('humedad')
         temperatura = request.form.get('temperatura')
 
+
     # Validar campos mínimos
     if not all([tipo_grano, capacidad, ocupacion, humedad, temperatura]):
         if request.is_json:
@@ -206,6 +223,7 @@ def crear_silo():
         else:
             flash('Completa todos los campos del formulario.', 'error')
             return redirect(url_for('dashboard'))
+
 
     try:
         capacidad_val = int(float(capacidad))
@@ -222,6 +240,7 @@ def crear_silo():
             flash('Los campos numéricos deben ser válidos.', 'error')
             return redirect(url_for('dashboard'))
 
+
     connection = get_db_connection()
     if not connection:
         if request.is_json:
@@ -230,10 +249,13 @@ def crear_silo():
             flash('No se pudo conectar a la base de datos.', 'error')
             return redirect(url_for('dashboard'))
 
+
     try:
         cursor = connection.cursor()
         # Asegurar columna fecha en tabla silos (MariaDB soporta IF NOT EXISTS)
         try:
+            # Esto es propenso a fallar en algunos MySQL, pero se deja por robustez si la DB lo soporta.
+            # Si falla, simplemente se hace rollback y se sigue, asumiendo que la columna existe.
             cursor.execute(
                 "ALTER TABLE silos ADD COLUMN IF NOT EXISTS fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
             )
@@ -241,6 +263,7 @@ def crear_silo():
         except Exception:
             # Si falla (ya existe o motor no soporta), continuar
             connection.rollback()
+
 
         cursor.execute(
             """
@@ -271,6 +294,7 @@ def crear_silo():
         cursor.close()
         connection.close()
 
+
     # Construir análisis para respuesta JSON y para UI
     porcentaje_ocupacion = 0
     try:
@@ -279,6 +303,7 @@ def crear_silo():
         porcentaje_ocupacion = 0
     analisis_grano = analizar_condiciones_por_grano(tipo_grano, humedad_val, temperatura_val)
     estado = analisis_grano['mensaje']
+
 
     if request.is_json:
         return jsonify({
@@ -302,16 +327,19 @@ def crear_silo():
     else:
         return redirect(url_for('resultados', silo_id=nuevo_id))
 
+
 @app.route('/resultados/<int:silo_id>')
 def resultados(silo_id: int):
     if 'user_id' not in session:
         flash('Debes iniciar sesión para acceder a los resultados', 'error')
         return redirect(url_for('login'))
 
+
     connection = get_db_connection()
     if not connection:
         flash('No se pudo conectar a la base de datos.', 'error')
         return redirect(url_for('dashboard'))
+
 
     registro = None
     try:
@@ -335,9 +363,11 @@ def resultados(silo_id: int):
             pass
         connection.close()
 
+
     analisis_grano = analizar_condiciones_por_grano(
         registro['tipo_grano'], int(registro['Humedad']), int(registro['Temperatura'])
     )
+
 
     porcentaje_ocupacion = 0
     try:
@@ -347,6 +377,7 @@ def resultados(silo_id: int):
     except Exception:
         porcentaje_ocupacion = 0
 
+
     return render_template(
         'Resultados.html',
         registro=registro,
@@ -354,16 +385,19 @@ def resultados(silo_id: int):
         porcentaje_ocupacion=porcentaje_ocupacion,
     )
 
+
 @app.route('/historial')
 def historial():
     if 'user_id' not in session:
         flash('Debes iniciar sesión para acceder al historial', 'error')
         return redirect(url_for('login'))
 
+
     connection = get_db_connection()
     if not connection:
         flash('No se pudo conectar a la base de datos.', 'error')
         return render_template('Historial.html', registros=[])
+
 
     registros = []
     try:
@@ -390,15 +424,19 @@ def historial():
             pass
         connection.close()
 
+
     return render_template('Historial.html', registros=registros)
+
 
 @app.route('/caracteristicas')
 def caracteristicas():
     return render_template('caracteristicas.html')
 
+
 @app.route('/beneficios')
 def beneficios():
     return render_template('beneficios.html')
+
 
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
@@ -408,12 +446,65 @@ def contacto():
         email = request.form['email']
         asunto = request.form['asunto']
         mensaje = request.form['mensaje']
-        
+       
         # Por ahora solo mostramos un mensaje de confirmación
         flash('Mensaje enviado correctamente. Te contactaremos pronto.', 'success')
         return redirect(url_for('contacto'))
-    
+   
     return render_template('contacto.html')
+
+
+# NUEVA RUTA: ELIMINAR HISTORIAL COMPLETO
+@app.route('/historial/eliminar', methods=['POST'])
+def eliminar_historial():
+    """
+    Maneja la solicitud POST para eliminar todos los registros de silos del usuario actual.
+    """
+    if 'user_id' not in session:
+        flash('Debes iniciar sesión para realizar esta acción', 'error')
+        return redirect(url_for('login'))
+
+
+    user_id = session['user_id']
+    connection = get_db_connection()
+
+
+    if not connection:
+        flash('Error de conexión a la base de datos. No se pudo eliminar el historial.', 'error')
+        return redirect(url_for('historial'))
+
+
+    try:
+        cursor = connection.cursor()
+       
+        # Consulta SQL para eliminar todos los registros de silos asociados al user_id
+        cursor.execute(
+            "DELETE FROM silos WHERE user_id = %s",
+            (user_id,)
+        )
+        connection.commit()
+        flash('El historial de análisis ha sido ELIMINADO completamente.', 'success')
+       
+    except mysql.connector.Error as err:
+        connection.rollback()
+        print(f"Error DB (eliminar historial): {err}")
+        flash('Error al intentar eliminar el historial.', 'error')
+       
+    finally:
+        try:
+            cursor.close()
+        except Exception:
+            pass
+        connection.close()
+   
+    # Redirige a la página de historial (que ahora estará vacía)
+    return redirect(url_for('historial'))
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
+
+
+

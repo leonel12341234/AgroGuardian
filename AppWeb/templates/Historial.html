@@ -27,7 +27,6 @@
 
     .btn-borrar {
       margin-top: 20px;
-      background-color: #c0392b;
       color: white;
       padding: 8px 16px;
       border: none;
@@ -58,6 +57,11 @@
   <main class="form-container" style="margin-top: 100px;">
     <div class="container">
       <h2>Historial de Análisis</h2>
+
+            <form id="form-eliminar-historial" method="POST" action="{{ url_for('eliminar_historial') }}">
+        <button type="submit" class="btn-borrar">🗑️ Borrar Historial Completo</button>
+      </form>
+            
       <div>
         {% if registros and registros|length > 0 %}
         <table style="background:#fff;">
@@ -96,6 +100,14 @@
   </footer>
 
   <script>
+    // Script para confirmar la eliminación del historial antes de enviarlo
+    document.getElementById('form-eliminar-historial').addEventListener('submit', function(event) {
+      const confirmacion = confirm("⚠️ ¿Estás seguro de que deseas ELIMINAR TODO el historial? Esta acción es irreversible.");
+      
+      if (!confirmacion) {
+        event.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
